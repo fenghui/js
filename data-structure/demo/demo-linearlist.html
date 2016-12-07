@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据结构-线性表</title>
+    <style type="text/css">
+        .red {
+            color: #f00;
+        }
+    </style>
+
+    <script type="text/javascript" src="../js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="../js/list/LinearList.js"></script>
+
+    <script type="text/javascript">
+        var linearList = new LinearList();
+        $(function() {
+            var uList = $("#list");
+            var bindListClick = function() {
+                uList.find('span').each(function(idx, ele) {
+                    $(ele).unbind('click');
+                    $(ele).click(function() {
+                        $(this).parent().remove();
+                        linearList.remove(idx);
+                        bindListClick();
+                    });
+                });
+            };
+
+            linearList.initialize(10);
+
+            //添加元素
+            $("#btn-add-ele").click(function() {
+                var text = parseInt(Math.random() * 100);
+                linearList.add(text);
+                uList.append("<li>" + text + "<span class='red'>x</span></li>");
+                bindListClick();
+            });
+
+            $("#btn-add-ele_head").click(function() {
+                var text = parseInt(Math.random() * 100);
+                linearList.addToIndex(0, text);
+                uList.prepend("<li>" + text + "<span class='red'>x</span></li>");
+                bindListClick();
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+    <h1>线性表</h1>
+    <button id="btn-add-ele">添加元素到线性表尾</button>
+    <button id="btn-add-ele_head">添加元素到线性表头</button>
+    <ul id="list"></ul>
+</body>
+</html>

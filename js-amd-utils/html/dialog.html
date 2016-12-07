@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css弹出框</title>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style type="text/css">
+        .dialog {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(100, 60, 0, 0.4);
+            z-index: 100;
+            display: none;
+        }
+
+        .dialog > .container {
+            width: 300px;
+            height: 100px;
+            margin: 200px auto;
+            background: #fff;
+        }
+
+        .dialog > .container > .header {
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        .dialog > .container > .content {
+            text-align: center;
+        }
+
+        .dialog > .container > .footer {
+            text-align: right;
+        }
+
+    </style>
+</head>
+<body>
+    <button id="btn-opendialog">打开弹出框</button>
+
+    <div class="dialog">
+        <div class="container">
+            <div class="header">Title</div>
+            <div class="content">Contents</div>
+            <div class="footer">
+                <button>Ok</button>
+                <button>Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            
+            $("#btn-opendialog").click(function() {
+                $(".dialog").show();
+            });
+
+            //点击弹出框内容以外的区域
+            $(".dialog").click(function() {
+                $(this).hide();
+            });
+
+            //点击弹出框内容的区域，取消事件冒泡，以免事件冒泡到.dialog上面
+            $(".dialog .container").click(function(e) {
+                if(e) {
+                    e.stopPropagation();
+                } else {
+                    window.event.cancelBubble = true;
+                }
+                console.log('b');
+            });
+        });
+    </script>
+</body>
+</html>

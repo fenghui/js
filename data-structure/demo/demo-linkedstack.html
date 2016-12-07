@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据结构-线性栈</title>
+    <style type="text/css">
+        .red {
+            color: #f00;
+        }
+    </style>
+
+    <script type="text/javascript" src="../js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="../js/stack/LinkedStack.js"></script>
+
+    <script type="text/javascript">
+        var linkedStack = new LinkedStack();
+        $(function() {
+            var uList = $("#list");
+
+            //添加元素
+            $("#btn-add-ele").click(function() {
+                var text = parseInt(Math.random() * 100);
+                linkedStack.push(text);
+                uList.append("<li>" + text + "</li>");
+            });
+
+            //移除元素
+            $("#btn-pop-ele").click(function() {
+                var text = parseInt(Math.random() * 100);
+                linkedStack.pop();
+                uList.find("li:last").remove();
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+    <h1>线性栈</h1>
+    <button id="btn-add-ele">元素入栈</button>
+    <button id="btn-pop-ele">元素出栈</button>
+    <ul id="list"></ul>
+</body>
+</html>

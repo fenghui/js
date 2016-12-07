@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据结构-顺序栈</title>
+    <style type="text/css">
+        .red {
+            color: #f00;
+        }
+    </style>
+
+    <script type="text/javascript" src="../js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="../js/stack/LinearStack.js"></script>
+
+    <script type="text/javascript">
+        var linearStack = new LinearStack();
+        $(function() {
+            var uList = $("#list");
+
+            linearStack.initialize(10);
+
+            //添加元素
+            $("#btn-add-ele").click(function() {
+                var text = parseInt(Math.random() * 100);
+                linearStack.push(text);
+                uList.append("<li>" + text + "</li>");
+            });
+
+            //移除元素
+            $("#btn-pop-ele").click(function() {
+                var text = parseInt(Math.random() * 100);
+                linearStack.pop();
+                uList.find("li:last").remove();
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+    <h1>顺序栈</h1>
+    <button id="btn-add-ele">元素入栈</button>
+    <button id="btn-pop-ele">元素出栈</button>
+    <ul id="list"></ul>
+</body>
+</html>

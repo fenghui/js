@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件聚合模式</title>
+
+    <script type="text/javascript">
+        //事件
+        function Event(eventName) {
+            var handlers = [];
+
+            this.getEventName = function() {
+                return eventName;
+            };
+
+            this.setHandler = function(handler) {
+                handlers.push(handler);
+            };
+
+            this.fire = function(eventArg) {
+                var i,
+                    len = handlers.length;
+                for(i = 0; i < len; i++) {
+                    handlers[i](eventArg);
+                }
+            };
+        }
+
+        //事件聚合类
+        function EventAggregate() {
+            var events = [];
+
+            var getEvent = function(eventName) {
+                var i,
+                    len = events.length,
+                    targetEvent;
+                for(i = 0; i < len; i++) {
+                    if(events[i].getEventName() == eventName) {
+                        targetEvent = events[i];
+                        break;
+                    }
+                }
+                return targetEvent;
+            };
+
+            this.publish = function(eventName, eventArgs) {
+                var targetEvent = getEvent(eventName);
+                if(!targetEvent) {
+                    targetEvent = new Event(eventName);
+                    events.push(targetEvent);
+                }
+
+                targetEvent.fire(eventArgs);
+            };
+
+            this.subscribe = function(eventName, handler) {
+                var targetEvent = getEvent(eventName);
+                if(!targetEvent) {
+                    targetEvent = new Event(eventName);
+                    events.push(targetEvent);
+                }
+
+                targetEvent.setHandler(handler);
+            };
+        }
+
+
+        /*
+        var eventAggregate = new EventAggregate();
+        eventAggregate.subscribe('test', function(args) {
+                console.log(args.name)
+            }
+        );
+        eventAggregate.publish('test', {name:'judy'})
+        */
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

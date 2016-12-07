@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Js原型链3</title>
+
+    <style type="text/css">
+        div {
+            margin: 20px 0;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        //原型链的使用方式
+        var BaseCalculator = function(){
+            this.fax = 5;
+        };
+
+        BaseCalculator.prototype = {
+            add : function(x, y) {
+                return parseInt(x) + parseInt(y);
+            },
+
+            subtract : function(x, y) {
+                return parseInt(x) - parseInt(y);
+            }
+        };
+
+        var Calculator = function() {};
+        //Calculator.prototype = BaseCalculator.prototype;
+        Calculator.prototype = new BaseCalculator();
+        //overview
+        Calculator.prototype.add = function(x, y) {
+            return parseInt(x) + parseInt(y) + this.fax;
+        };
+
+        
+        //初始化
+        function init() {
+            var val1,
+                val2,
+                calculator = new Calculator();
+            $("btn-add").onclick = function() {
+                val1 = $("txt-x1").value;
+                val2 = $("txt-y1").value;
+                $("txt-result1").innerText = calculator.add(val1, val2);
+            }
+
+            $("btn-subtract").onclick = function(e) {
+                val1 = $("txt-x2").value;
+                val2 = $("txt-y2").value;
+                $("txt-result2").innerText = calculator.subtract(val1, val2);
+            }
+        }
+
+        function $(id) {
+            return document.getElementById(id);
+        }
+    </script>
+</head>
+<body onload="init()">
+    <div>
+        <b>加法计算:</b>
+        <input type="text" id="txt-x1">
+        <input type="text" id="txt-y1">
+        <span id="txt-result1"></span>
+        <button id="btn-add">计算</button>
+    </div>
+
+    <div>
+        <b>减法计算:</b>
+        <input type="text" id="txt-x2">
+        <input type="text" id="txt-y2">
+        <span id="txt-result2"></span>
+        <button id="btn-subtract">计算</button>
+    </div>
+</body>
+</html>

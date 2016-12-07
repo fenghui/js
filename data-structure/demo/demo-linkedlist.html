@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据结构-单链表</title>
+    <style type="text/css">
+        .red {
+            color: #f00;
+        }
+    </style>
+
+    <script type="text/javascript" src="../js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="../js/list/LinkedList.js"></script>
+
+    <script type="text/javascript">
+        var linkedList = new LinkedList();
+        $(function() {
+            var uList = $("#list");
+            var bindListClick = function() {
+                uList.find('span').each(function(idx, ele) {
+                    $(ele).unbind('click');
+                    $(ele).click(function() {
+                        $(this).parent().remove();
+                        linkedList.remove(idx);
+                        bindListClick();
+                    });
+                });
+            };
+
+            //添加元素
+            $("#btn-add-ele").click(function() {
+                var text = parseInt(Math.random() * 100);
+                linkedList.add(text);
+                uList.append("<li>" + text + "<span class='red'>x</span></li>");
+                bindListClick();
+            });
+
+            //添加到链表头
+            $("#btn-add-ele_head").click(function() {
+                var text = parseInt(Math.random() * 100);
+                linkedList.addToIndex(0, text);
+                uList.prepend("<li>" + text + "<span class='red'>x</span></li>");
+                bindListClick();
+            });
+
+            //remove all
+            $("#btn-removeall").click(function() {
+                linkedList.removeAll();
+                uList.html('');
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+    <h1>线性表</h1>
+    <button id="btn-add-ele">添加元素到单链表尾</button>
+    <button id="btn-add-ele_head">添加元素到单链表头</button>
+    <ul id="list"></ul>
+    <button id="btn-removeall">移除全部</button>
+</body>
+</html>

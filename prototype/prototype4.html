@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型链</title>
+
+    <script type="text/javascript">
+        var BaseObj = function() {
+            this.foo = 'foo';
+        };
+
+        var Obj = function() {
+            this.bar = 'bar';
+
+            // this.hasOwnProperty = function() {
+            //     return false;
+            // }
+        };
+
+        Obj.prototype = new BaseObj();
+        var obj = new Obj();
+        //判断对象自己是否拥有属性，不查找原型链，如果Obj中实现了hasOwnProperty方法，则会影响该方法的正常使用
+        console.log(obj.hasOwnProperty('foo'));
+
+        //使用下面的方法获取
+        console.log({}.hasOwnProperty.call(obj, 'bar'));
+
+        console.log('-----------for in obj-----------');
+        for(var i in obj) {
+            console.log(i);
+        }
+
+        console.log('-----------for in obj (hasOwnProperty)-----------');
+        for(var i in obj) {
+            if(obj.hasOwnProperty(i)) {
+                console.log(i);
+            }
+        }
+
+    </script>
+</head>
+<body>
+    控制台打印输出
+</body>
+</html>
